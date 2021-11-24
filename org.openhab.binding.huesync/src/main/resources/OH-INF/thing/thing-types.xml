@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="huesync"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="box">
+		<label>Hue Sync Box</label>
+		<description>Control a Hue Sync Box.</description>
+
+		<channels>
+			<channel id="power" typeId="power"/>
+			<channel id="mode" typeId="mode"/>
+			<channel id="intensity" typeId="intensity"/>
+			<channel id="brightness" typeId="brightness"/>
+			<channel id="input" typeId="input"/>
+			<channel id="syncStatus" typeId="syncStatus"/>
+
+			<channel id="outputName" typeId="outputName"/>
+			<channel id="outputType" typeId="outputType"/>
+			<channel id="outputStatus" typeId="outputStatus"/>
+			<channel id="outputLastMode" typeId="outputLastMode"/>
+
+			<channel id="input1Name" typeId="inputName"/>
+			<channel id="input1Type" typeId="inputType"/>
+			<channel id="input1Status" typeId="inputStatus"/>
+			<channel id="input1LastMode" typeId="inputLastMode"/>
+
+			<channel id="input2Name" typeId="inputName"/>
+			<channel id="input2Type" typeId="inputType"/>
+			<channel id="input2Status" typeId="inputStatus"/>
+			<channel id="input2LastMode" typeId="inputLastMode"/>
+
+			<channel id="input3Name" typeId="inputName"/>
+			<channel id="input3Type" typeId="inputType"/>
+			<channel id="input3Status" typeId="inputStatus"/>
+			<channel id="input3LastMode" typeId="inputLastMode"/>
+
+			<channel id="input4Name" typeId="inputName"/>
+			<channel id="input4Type" typeId="inputType"/>
+			<channel id="input4Status" typeId="inputStatus"/>
+			<channel id="input4LastMode" typeId="inputLastMode"/>
+		</channels>
+
+		<config-description>
+			<parameter-group name="connectionSettings">
+				<label>General Connection Settings</label>
+			</parameter-group>
+
+			<parameter-group name="httpSettings">
+				<label>HTTP Settings</label>
+				<description>Settings for the HTTP API</description>
+				<advanced>true</advanced>
+			</parameter-group>
+
+			<parameter name="host" type="text" required="true" groupName="connectionSettings">
+				<context>network-address</context>
+				<label>Hostname or IP address</label>
+				<description>Hostname or IP address of the hue sync box.</description>
+			</parameter>
+
+			<parameter name="httpPollingInterval" type="integer" groupName="httpSettings">
+				<label>Polling Interval</label>
+				<description>Refresh interval of the HTTP API in seconds (minimal 5)</description>
+				<default>60</default>
+				<advanced>true</advanced>
+			</parameter>
+
+			<parameter name="apiAccessToken" type="text" groupName="httpSettings">
+				<label>API Access Token</label>
+				<description>The API access token required to control the box</description>
+				<context>password</context>
+				<advanced>true</advanced>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="power">
+		<item-type>Switch</item-type>
+		<label>Power</label>
+		<description>Power ON/OFF</description>
+	</channel-type>
+
+	<channel-type id="mode">
+		<item-type>String</item-type>
+		<label>Sync Mode</label>
+		<description>Select the sync mode</description>
+		<state>
+			<options>
+				<option value="powersave">Powersave</option>
+				<option value="video">Video</option>
+				<option value="music">Music</option>
+				<option value="game">Game</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="intensity">
+		<item-type>String</item-type>
+		<label>Intensity</label>
+		<description>Select the intensity</description>
+		<state>
+			<options>
+				<option value="subtle">Subtle</option>
+				<option value="moderate">Moderate</option>
+				<option value="high">High</option>
+				<option value="intense">Intense</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="brightness">
+		<item-type>Dimmer</item-type>
+		<label>Brightness</label>
+		<description>Set the brightness</description>
+	</channel-type>
+
+	<channel-type id="input">
+		<item-type>String</item-type>
+		<label>Input Source</label>
+		<description>Select the input source</description>
+		<state>
+			<options>
+				<option value="input1">HDMI 1</option>
+				<option value="input2">HDMI 2</option>
+				<option value="input3">HDMI 3</option>
+				<option value="input4">HDMI 4</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="syncStatus">
+		<item-type>Switch</item-type>
+		<label>Sync Status</label>
+		<description>Sync Status</description>
+	</channel-type>
+
+	<channel-type id="inputName" advanced="true">
+		<item-type>String</item-type>
+		<label>Input name</label>
+		<description>Input name</description>
+		<state readOnly="true"></state>
+	</channel-type>
+
+	<channel-type id="inputType" advanced="true">
+		<item-type>String</item-type>
+		<label>Input type</label>
+		<description>Input type</description>
+		<state readOnly="true"></state>
+	</channel-type>
+
+	<channel-type id="inputStatus" advanced="true">
+		<item-type>String</item-type>
+		<label>Input status</label>
+		<description>Input status</description>
+		<state readOnly="true"></state>
+	</channel-type>
+
+	<channel-type id="inputLastMode" advanced="true">
+		<item-type>String</item-type>
+		<label>Input last sync mode</label>
+		<description>Input last sync mode</description>
+		<state readOnly="true"></state>
+	</channel-type>
+
+	<channel-type id="outputName" advanced="true">
+		<item-type>String</item-type>
+		<label>Output name</label>
+		<description>Output name</description>
+		<state readOnly="true"></state>
+	</channel-type>
+
+	<channel-type id="outputType" advanced="true">
+		<item-type>String</item-type>
+		<label>Output type</label>
+		<description>Output type</description>
+		<state readOnly="true"></state>
+	</channel-type>
+
+	<channel-type id="outputStatus" advanced="true">
+		<item-type>String</item-type>
+		<label>Output status</label>
+		<description>Output status</description>
+		<state readOnly="true"></state>
+	</channel-type>
+
+	<channel-type id="outputLastMode" advanced="true">
+		<item-type>String</item-type>
+		<label>Output last sync mode</label>
+		<description>Output last sync mode</description>
+		<state readOnly="true"></state>
+	</channel-type>
+</thing:thing-descriptions>
