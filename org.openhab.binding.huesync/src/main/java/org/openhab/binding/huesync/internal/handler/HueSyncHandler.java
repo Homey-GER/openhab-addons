@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010-2021 Contributors to the openHAB project
+ * Copyright (c) 2010-2022 Contributors to the openHAB project
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information.
@@ -191,7 +191,8 @@ public class HueSyncHandler extends BaseThingHandler implements HueSyncStateChan
 
         // Update Thing Configuration
         if (!config.getApiAccessToken().isBlank()) {
-            if (this.getThing().getConfiguration().get(PARAMETER_API_ACCESS_TOKEN) != config.getApiAccessToken()) {
+            if (this.getThing().getConfiguration().get(PARAMETER_API_ACCESS_TOKEN) == null || !this.getThing()
+                    .getConfiguration().get(PARAMETER_API_ACCESS_TOKEN).equals(config.getApiAccessToken())) {
                 logger.debug("API Token changed! Updating Thing Configuration ...");
                 Configuration editConfig = editConfiguration();
                 editConfig.put(PARAMETER_API_ACCESS_TOKEN, config.getApiAccessToken());
